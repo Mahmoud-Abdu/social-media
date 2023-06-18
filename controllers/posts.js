@@ -1,7 +1,10 @@
-import Post from "../models/post.js";
-import User from "../models/user.js";
+// import Post from "../models/post.js";
+// import User from "../models/user.js";
+
+const Post = require("../models/post");
+const User = require("../models/user");
 // create
-export const createPost = async (req, res) => {
+ const createPost = async (req, res) => {
   try {
     const { userId, description, picturePath } = req.body;
     const user = await User.findById(userId);
@@ -27,7 +30,7 @@ export const createPost = async (req, res) => {
 };
 
 //read
-export const getFeedPosts = async (req, res) => {
+ const getFeedPosts = async (req, res) => {
   try {
     const posts = await Post.find();
     res.status(200).json(posts);
@@ -36,7 +39,7 @@ export const getFeedPosts = async (req, res) => {
   }
 };
 
-export const getUserPosts = async (req, res) => {
+ const getUserPosts = async (req, res) => {
   try {
     const { userId } = req.params;
     const posts = await Post.find({ userId });
@@ -48,7 +51,7 @@ export const getUserPosts = async (req, res) => {
 
 //update
 
-export const likePost = async (req, res) => {
+ const likePost = async (req, res) => {
   try {
     const { id } = req.params;
     const { userId } = req.body;
@@ -71,3 +74,11 @@ export const likePost = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+module.exports = {
+  createPost,
+  getFeedPosts,
+  getUserPosts,
+  likePost
+  
+}

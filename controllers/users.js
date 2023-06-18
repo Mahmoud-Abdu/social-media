@@ -1,7 +1,7 @@
-import User from "../models/user.js";
-
+// import User from "../models/user.js";
+const User = require("../models/user");
 // Read
-export const getUser = async (req, res) => {
+ const getUser = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findById(id);
@@ -11,12 +11,14 @@ export const getUser = async (req, res) => {
   }
 };
 
-export const getUserFriends = async (req, res) => {
+ const getUserFriends = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findById(id);
 
-    const friends = await Promise.all(user.friends.map((id) => User.findById(id)));
+    const friends = await Promise.all(
+      user.friends.map((id) => User.findById(id))
+    );
     const formattedFriends = friends.map(
       ({ _id, firstName, lastName, occupation, location, picturePath }) => {
         return {
@@ -37,7 +39,7 @@ export const getUserFriends = async (req, res) => {
 
 // update
 
-export const addRemoveFriend = async (req, res) => {
+ const addRemoveFriend = async (req, res) => {
   try {
     const { id, friendId } = req.params;
     const user = await User.findById(id);
@@ -62,10 +64,14 @@ export const addRemoveFriend = async (req, res) => {
       }
     );
 
-    
-
     res.status(200).json(formattedFriends);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
 };
+
+module.exports = {
+  getUser,
+  getUserFriends,
+  addRemoveFriend
+}

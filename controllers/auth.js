@@ -1,10 +1,12 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import User from "../models/user.js";
-
+// import bcrypt from "bcrypt";
+// import jwt from "jsonwebtoken";
+// import User from "../models/user.js";
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
 // Register User
 
-export const register = async (req, res) => {
+ const register = async (req, res) => {
   try {
     const {
       firstName,
@@ -40,7 +42,7 @@ export const register = async (req, res) => {
 };
 
 //  Login
-export const login = async (req, res) => {
+ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -56,3 +58,9 @@ export const login = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+module.exports = {
+  register,
+  login
+}
+

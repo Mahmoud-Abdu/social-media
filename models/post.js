@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-
+// import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const postSchema = mongoose.Schema(
   {
     userId: {
@@ -32,4 +32,4 @@ const postSchema = mongoose.Schema(
 
 const Post = mongoose.model("Post", postSchema);
 
-export default Post;
+module.exports =  Post;
